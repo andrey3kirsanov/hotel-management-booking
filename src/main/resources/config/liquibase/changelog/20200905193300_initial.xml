@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="00000000000000" author="Andrey Kirsanov">
+        <createSequence sequenceName="hibernate_sequence" startValue="1000" incrementBy="50"/>
+    </changeSet>
+
+    <changeSet id="00000000000000_booked_rooms" author="Andrey Kirsanov">
+        <createTable tableName="booked_rooms">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="room_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_data_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_data_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="00000000000000_hotels" author="Andrey Kirsanov">
+        <createTable tableName="hotels">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_data_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_data_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="00000000000000_h_facilities" author="Andrey Kirsanov">
+        <createTable tableName="h_facilities">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_data_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_data_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="00000000000000_hotels_facilities" author="Andrey Kirsanov">
+        <createTable tableName="hotels_facilities">
+            <column name="hotel_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="facility_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="hotel_id, facility_id" tableName="hotels_facilities"/>
+
+        <addForeignKeyConstraint baseColumnNames="hotel_id"
+                                 baseTableName="hotels_facilities"
+                                 constraintName="fk_hotel_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="hotels"/>
+        <addForeignKeyConstraint baseColumnNames="facility_id"
+                                 baseTableName="hotels_facilities"
+                                 constraintName="fk_h_facility_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="h_facilities"/>
+    </changeSet>
+
+    <changeSet id="00000000000000_rooms" author="Andrey Kirsanov">
+        <createTable tableName="rooms">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(256)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="description" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="available_number" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_data_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_data_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="00000000000000_r_facilities" author="Andrey Kirsanov">
+        <createTable tableName="r_facilities">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(256)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="description" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_data_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_data_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="00000000000000_rooms_facilities" author="Andrey Kirsanov">
+        <createTable tableName="rooms_facilities">
+            <column name="room_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="facility_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="room_id, facility_id" tableName="rooms_facilities"/>
+
+        <addForeignKeyConstraint baseColumnNames="room_id"
+                                 baseTableName="rooms_facilities"
+                                 constraintName="fk_room_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rooms"/>
+        <addForeignKeyConstraint baseColumnNames="facility_id"
+                                 baseTableName="rooms_facilities"
+                                 constraintName="fk_r_facility_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="r_facilities"/>
+    </changeSet>
+</databaseChangeLog>
