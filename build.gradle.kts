@@ -21,6 +21,7 @@ plugins {
     kotlin("jvm") version "1.3.72"
     kotlin("plugin.spring") version "1.3.72"
     kotlin("kapt") version "1.3.72"
+    kotlin("plugin.jpa") version "1.3.72"
 }
 
 group = "ru.hotel.management.hotel.booking"

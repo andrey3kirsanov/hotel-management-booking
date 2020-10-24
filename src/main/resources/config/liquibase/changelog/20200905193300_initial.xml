@@ -6,13 +6,13 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="00000000000000" author="Andrey Kirsanov">
-        <createSequence sequenceName="hibernate_sequence" startValue="1000" incrementBy="50"/>
+    <changeSet id="00000000000000_booked_rooms_sequence" author="Andrey Kirsanov">
+        <createSequence sequenceName="booked_rooms_sequence" startValue="1" incrementBy="1"/>
     </changeSet>
 
     <changeSet id="00000000000000_booked_rooms" author="Andrey Kirsanov">
         <createTable tableName="booked_rooms">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="room_id" type="bigint">
@@ -30,9 +30,13 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="00000000000000_hotels_sequence" author="Andrey Kirsanov">
+        <createSequence sequenceName="hotels_sequence" startValue="1" incrementBy="1"/>
+    </changeSet>
+
     <changeSet id="00000000000000_hotels" author="Andrey Kirsanov">
         <createTable tableName="hotels">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(256)">
@@ -50,9 +54,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="00000000000000_h_facilities" author="Andrey Kirsanov">
-        <createTable tableName="h_facilities">
-            <column name="id" type="bigint" autoIncrement="true">
+    <changeSet id="00000000000000_hotel_facility_sequence" author="Andrey Kirsanov">
+        <createSequence sequenceName="hotel_facility_sequence" startValue="1" incrementBy="1"/>
+    </changeSet>
+
+    <changeSet id="00000000000000_hotel_facility" author="Andrey Kirsanov">
+        <createTable tableName="hotel_facility">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(256)">
@@ -89,14 +97,18 @@
                                  referencedTableName="hotels"/>
         <addForeignKeyConstraint baseColumnNames="facility_id"
                                  baseTableName="hotels_facilities"
-                                 constraintName="fk_h_facility_id"
+                                 constraintName="fk_hotel_facility_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="h_facilities"/>
+                                 referencedTableName="hotel_facility"/>
+    </changeSet>
+
+    <changeSet id="00000000000000_rooms_sequence" author="Andrey Kirsanov">
+        <createSequence sequenceName="rooms_sequence" startValue="1" incrementBy="1"/>
     </changeSet>
 
     <changeSet id="00000000000000_rooms" author="Andrey Kirsanov">
         <createTable tableName="rooms">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(256)">
@@ -120,9 +132,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="00000000000000_r_facilities" author="Andrey Kirsanov">
-        <createTable tableName="r_facilities">
-            <column name="id" type="bigint" autoIncrement="true">
+    <changeSet id="00000000000000_room_facility_sequence" author="Andrey Kirsanov">
+        <createSequence sequenceName="room_facility_sequence" startValue="1" incrementBy="1"/>
+    </changeSet>
+
+    <changeSet id="00000000000000_room_facility" author="Andrey Kirsanov">
+        <createTable tableName="room_facility">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(256)">
@@ -159,8 +175,16 @@
                                  referencedTableName="rooms"/>
         <addForeignKeyConstraint baseColumnNames="facility_id"
                                  baseTableName="rooms_facilities"
-                                 constraintName="fk_r_facility_id"
+                                 constraintName="fk_room_facility_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="r_facilities"/>
+                                 referencedTableName="room_facility"/>
+    </changeSet>
+
+    <changeSet id="00000000000000_booked_rooms_room_id" author="Andrey Kirsanov">
+        <addForeignKeyConstraint baseColumnNames="room_id"
+                                 baseTableName="booked_rooms"
+                                 constraintName="fk_booked_rooms_room_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rooms"/>
     </changeSet>
 </databaseChangeLog>
