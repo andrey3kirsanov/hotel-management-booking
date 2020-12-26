@@ -16,6 +16,8 @@ spring:
     producer:
       client-id: hotel_store
       retries: 2
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     jaas:
       enabled: true
     listener:
