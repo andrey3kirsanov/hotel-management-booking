@@ -12,7 +12,7 @@ import org.springframework.kafka.support.serializer.JsonSerializer
 import ru.hotel.management.hotel.booking.domain.HotelPush
 
 @Configuration
-class HotelSenderConfig() {
+class HotelProducerConfig() {
     @Value("\${spring.kafka.bootstrap-servers}")
     private val bootstrapServers: String? = null
 
