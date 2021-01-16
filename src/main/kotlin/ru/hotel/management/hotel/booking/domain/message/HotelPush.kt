@@ -1,7 +1,8 @@
-package ru.hotel.management.hotel.booking.domain
+package ru.hotel.management.hotel.booking.domain.message
 
 import lombok.Getter
 import lombok.Setter
+import ru.hotel.management.hotel.booking.domain.HotelFacility
 import java.time.Instant
 
 @Getter
@@ -17,5 +18,5 @@ class HotelPush(
 
         val updatedDateTime: Instant,
 
-        val facilities: List<HotelFacilities>
+        val facilities: List<HotelFacility>
 )

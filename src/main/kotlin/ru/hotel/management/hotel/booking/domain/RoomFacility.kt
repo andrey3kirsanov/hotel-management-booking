@@ -2,18 +2,19 @@ package ru.hotel.management.hotel.booking.domain
 
 import lombok.Getter
 import lombok.Setter
+import ru.hotel.management.hotel.booking.domain.Room
 import java.time.Instant
 import javax.persistence.*
 
 @Getter
 @Setter
 @Entity
-@Table(name = "hotel_facility")
-class HotelFacilities(
+@Table(name = "room_facility")
+class RoomFacility(
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hotelFacilitySeq")
-    @SequenceGenerator(name = "hotelFacilitySeq", sequenceName = "hotel_facility_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roomFacilitySeq")
+    @SequenceGenerator(name = "roomFacilitySeq", sequenceName = "room_facility_sequence", allocationSize = 1)
     var id: Long,
 
     @Column(name = "name")
@@ -26,5 +27,8 @@ class HotelFacilities(
     var createdDateTime: Instant,
 
     @Column(name = "updated_data_time")
-    var updatedDateTime: Instant
+    var updatedDateTime: Instant,
+
+    @ManyToMany(mappedBy = "facilities")
+    var rooms: MutableList<Room>
 )

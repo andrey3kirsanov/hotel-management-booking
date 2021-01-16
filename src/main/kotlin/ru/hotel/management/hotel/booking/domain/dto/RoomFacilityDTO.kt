@@ -7,4 +7,4 @@ import lombok.Setter
 @Getter
 @Setter
 @Builder
-class RoomDTO(val name: String, val description: String, val price: Int, var availableNumber: Int, val hotelId: Long)
+class RoomFacilityDTO(val name: String, val description: String)

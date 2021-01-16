@@ -6,30 +6,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="00000000000000_booked_rooms_sequence" author="Andrey Kirsanov">
-        <createSequence sequenceName="booked_rooms_sequence" startValue="1" incrementBy="1"/>
-    </changeSet>
-
-    <changeSet id="00000000000000_booked_rooms" author="Andrey Kirsanov">
-        <createTable tableName="booked_rooms">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="room_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="status" type="varchar(64)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="created_data_time" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
-            <column name="updated_data_time" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-
     <changeSet id="00000000000000_hotels_sequence" author="Andrey Kirsanov">
         <createSequence sequenceName="hotels_sequence" startValue="1" incrementBy="1"/>
     </changeSet>
@@ -111,10 +87,16 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="hotel_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <column name="name" type="varchar(256)">
                 <constraints unique="true" nullable="false"/>
             </column>
             <column name="description" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(256)">
                 <constraints nullable="false"/>
             </column>
             <column name="price" type="integer">
@@ -123,13 +105,25 @@
             <column name="available_number" type="integer">
                 <constraints nullable="false"/>
             </column>
+            <column name="bookedNumber" type="integer">
+                <constraints nullable="false"/>
+            </column>
             <column name="created_data_time" type="timestamp">
                 <constraints nullable="false"/>
             </column>
             <column name="updated_data_time" type="timestamp">
                 <constraints nullable="false"/>
             </column>
+            <column name="bookedDateTime" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="hotel_id"
+                                 baseTableName="rooms"
+                                 constraintName="fk_hotel_room_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="hotels"/>
     </changeSet>
 
     <changeSet id="00000000000000_room_facility_sequence" author="Andrey Kirsanov">

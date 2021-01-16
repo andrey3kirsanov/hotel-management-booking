@@ -9,7 +9,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.core.ProducerFactory
 import org.springframework.kafka.support.serializer.JsonSerializer
-import ru.hotel.management.hotel.booking.domain.HotelPush
+import ru.hotel.management.hotel.booking.domain.message.HotelPush
 
 @Configuration
 class HotelProducerConfig() {

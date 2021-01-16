@@ -24,9 +24,12 @@ class Hotel(
     @Column(name = "updated_data_time")
     val updatedDateTime: Instant,
 
+    @OneToMany(mappedBy = "hotel")
+    val rooms: MutableList<Room>,
+
     @ManyToMany
     @JoinTable(name = "hotels_facilities",
             joinColumns = [JoinColumn(name = "hotel_id", referencedColumnName = "id")],
             inverseJoinColumns = [JoinColumn(name = "facility_id", referencedColumnName = "id")])
-    val facilities: List<HotelFacilities>
+    val facilities: MutableList<HotelFacility>
 )

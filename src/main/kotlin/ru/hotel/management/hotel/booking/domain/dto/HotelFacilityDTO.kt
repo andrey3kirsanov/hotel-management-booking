@@ -5,4 +5,4 @@ import lombok.*
 @Getter
 @Setter
 @Builder
-class HotelFacilitiesDTO(val name: String, val description: String)
+class HotelFacilityDTO(val name: String, val description: String)
