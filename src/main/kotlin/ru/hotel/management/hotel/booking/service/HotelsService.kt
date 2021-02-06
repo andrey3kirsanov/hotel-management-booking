@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.hotel.management.hotel.booking.domain.Hotel
 import ru.hotel.management.hotel.booking.domain.HotelFacility
+import ru.hotel.management.hotel.booking.domain.Room
 import ru.hotel.management.hotel.booking.domain.dto.AddHotelFacilityDTO
 import ru.hotel.management.hotel.booking.domain.dto.AddRoomDTO
 import ru.hotel.management.hotel.booking.domain.dto.HotelDTO
@@ -50,14 +51,14 @@ class HotelsService(
     }
 
     @Transactional
-    fun addRoomToHotel(dto: AddRoomDTO) : Hotel {
+    fun addRoomToHotel(dto: AddRoomDTO) : Room {
         val hotel = hotelsRepository.findById(dto.hotelId)
                 .orElseThrow { throw ClientErrorException("Hotel is not found") }
         val room = roomsRepository.findById(dto.roomId)
                 .orElseThrow { throw ClientErrorException("Room is not found") }
 
-        hotel.rooms.add(room)
-        return hotelsRepository.save(hotel)
+        room.hotel = hotel
+        return roomsRepository.save(room)
     }
 
 }

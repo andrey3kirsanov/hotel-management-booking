@@ -1,14 +1,17 @@
 package ru.hotel.management.hotel.booking.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import lombok.Getter
 import lombok.Setter
-import ru.hotel.management.hotel.booking.enums.BookedRoomStatus
+import ru.hotel.management.hotel.booking.enums.RoomStatus
+import ru.hotel.management.hotel.booking.listener.RoomUpdateListener
 import java.time.Instant
 import javax.persistence.*
 
 @Getter
 @Setter
 @Entity
+@EntityListeners(value = arrayOf(RoomUpdateListener::class))
 @Table(name = "rooms")
 class Room(
     @Id
@@ -24,7 +27,8 @@ class Room(
     var description: String,
 
     @Column(name = "status")
-    var status: BookedRoomStatus,
+    @Enumerated(EnumType.STRING)
+    var status: RoomStatus,
 
     @Column(name = "price")
     var price: Int = 0,
@@ -44,12 +48,13 @@ class Room(
     @Column(name = "booked_data_time")
     var bookedDateTime: Instant?,
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "hotel_id")
-    var hotel: Hotel,
+    var hotel: Hotel?,
 
     @ManyToMany
-    @JoinTable(name = "hotels_rooms",
+    @JoinTable(name = "rooms_facilities",
             joinColumns = [JoinColumn(name = "room_id", referencedColumnName = "id")],
             inverseJoinColumns = [JoinColumn(name = "facility_id", referencedColumnName = "id")])
     var facilities: MutableList<RoomFacility>

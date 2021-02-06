@@ -1,9 +1,11 @@
 package ru.hotel.management.hotel.booking.domain
 
+import ru.hotel.management.hotel.booking.listener.HotelUpdateListener
 import java.time.Instant
 import javax.persistence.*
 
 @Entity
+@EntityListeners(value = arrayOf(HotelUpdateListener::class))
 @Table(name = "hotels")
 class Hotel(
     @Id

@@ -42,6 +42,9 @@ dependencies {
     // Kafka
     implementation("org.springframework.kafka:spring-kafka:2.5.3.RELEASE")
 
+    implementation("org.mapstruct:mapstruct:1.4.1.Final")
+    kapt("org.mapstruct:mapstruct-processor:1.4.1.Final")
+
     // Lombok
     compileOnly("org.projectlombok:lombok:1.18.8")
     testCompileOnly("org.projectlombok:lombok:1.18.8")

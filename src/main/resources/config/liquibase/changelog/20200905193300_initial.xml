@@ -105,7 +105,7 @@
             <column name="available_number" type="integer">
                 <constraints nullable="false"/>
             </column>
-            <column name="bookedNumber" type="integer">
+            <column name="booked_number" type="integer">
                 <constraints nullable="false"/>
             </column>
             <column name="created_data_time" type="timestamp">
@@ -114,7 +114,7 @@
             <column name="updated_data_time" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="bookedDateTime" type="timestamp">
+            <column name="booked_data_time" type="timestamp">
                 <constraints nullable="true"/>
             </column>
         </createTable>
@@ -172,13 +172,5 @@
                                  constraintName="fk_room_facility_id"
                                  referencedColumnNames="id"
                                  referencedTableName="room_facility"/>
-    </changeSet>
-
-    <changeSet id="00000000000000_booked_rooms_room_id" author="Andrey Kirsanov">
-        <addForeignKeyConstraint baseColumnNames="room_id"
-                                 baseTableName="booked_rooms"
-                                 constraintName="fk_booked_rooms_room_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="rooms"/>
     </changeSet>
 </databaseChangeLog>
