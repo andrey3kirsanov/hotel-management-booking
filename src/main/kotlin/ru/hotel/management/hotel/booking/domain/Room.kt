@@ -39,13 +39,13 @@ class Room(
     @Column(name = "booked_number")
     var bookedNumber: Int = 0,
 
-    @Column(name = "created_data_time")
+    @Column(name = "created_date_time")
     var createdDateTime: Instant,
 
-    @Column(name = "updated_data_time")
+    @Column(name = "updated_date_time")
     var updatedDateTime: Instant,
 
-    @Column(name = "booked_data_time")
+    @Column(name = "booked_date_time")
     var bookedDateTime: Instant?,
 
     @JsonIgnore
@@ -57,5 +57,8 @@ class Room(
     @JoinTable(name = "rooms_facilities",
             joinColumns = [JoinColumn(name = "room_id", referencedColumnName = "id")],
             inverseJoinColumns = [JoinColumn(name = "facility_id", referencedColumnName = "id")])
-    var facilities: MutableList<RoomFacility>
+    var facilities: MutableList<RoomFacility>,
+
+    @ManyToMany(mappedBy = "rooms")
+    var customers: MutableList<Customer>
 )

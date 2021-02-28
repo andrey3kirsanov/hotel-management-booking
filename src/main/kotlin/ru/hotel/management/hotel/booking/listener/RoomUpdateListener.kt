@@ -11,7 +11,7 @@ import javax.persistence.PostUpdate
 
 @Service
 class RoomUpdateListener(
-        val kafkaTemplate: KafkaTemplate<String, HotelPush>?,
+        val hotelKafkaTemplate: KafkaTemplate<String, HotelPush>?,
         val hotelsRepository: HotelsRepository?,
         val hotelPushMapper: HotelPushMapper?
 ) {
@@ -25,7 +25,7 @@ class RoomUpdateListener(
         }
         val hotelOptional = hotelsRepository?.findById(room.hotel!!.id)
         if (hotelOptional!!.isPresent) {
-            kafkaTemplate?.send("hotel.push", hotelPushMapper?.toHotelPush(hotelOptional.get()))
+            hotelKafkaTemplate?.send("hotel.push", hotelPushMapper?.toHotelPush(hotelOptional.get()))
         }
     }
 }

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import ru.hotel.management.hotel.booking.domain.Room
 import ru.hotel.management.hotel.booking.domain.RoomFacility
 import ru.hotel.management.hotel.booking.domain.dto.AddRoomFacilityDTO
-import ru.hotel.management.hotel.booking.domain.dto.BookedRoomDTO
 import ru.hotel.management.hotel.booking.domain.dto.RoomDTO
 import ru.hotel.management.hotel.booking.domain.dto.RoomFacilityDTO
 import ru.hotel.management.hotel.booking.service.RoomsService
@@ -32,10 +31,5 @@ class RoomsController(
     @PostMapping("/add-room-facility")
     fun addRoomFacilityToRoom(@RequestBody dto: AddRoomFacilityDTO): ResponseEntity<Room> {
         return ResponseEntity.ok(roomsService.addRoomFacilityToRoom(dto))
-    }
-
-    @PostMapping("/book-room")
-    fun bookRoom(@RequestBody dto: BookedRoomDTO): ResponseEntity<Room> {
-        return ResponseEntity.ok(roomsService.bookRoom(dto))
     }
 }

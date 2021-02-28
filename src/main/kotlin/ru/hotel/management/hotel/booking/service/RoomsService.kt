@@ -5,7 +5,6 @@ import org.springframework.transaction.annotation.Transactional
 import ru.hotel.management.hotel.booking.domain.Room
 import ru.hotel.management.hotel.booking.domain.RoomFacility
 import ru.hotel.management.hotel.booking.domain.dto.AddRoomFacilityDTO
-import ru.hotel.management.hotel.booking.domain.dto.BookedRoomDTO
 import ru.hotel.management.hotel.booking.domain.dto.RoomDTO
 import ru.hotel.management.hotel.booking.domain.dto.RoomFacilityDTO
 import ru.hotel.management.hotel.booking.enums.RoomStatus
@@ -25,7 +24,7 @@ class RoomsService(
         val room = Room(0L,
                 dto.name, dto.description, RoomStatus.AVAILABLE, dto.price,
                 dto.availableNumber, 0, Instant.now(), Instant.now(), null,
-                null, Collections.emptyList()
+                null, Collections.emptyList(), Collections.emptyList()
         )
         return roomsRepository.save(room)
     }
@@ -48,20 +47,6 @@ class RoomsService(
         room.facilities.add(roomFacility)
         return roomsRepository.save(room)
 
-    }
-
-    @Transactional
-    fun bookRoom(dto: BookedRoomDTO) : Room {
-        val room = roomsRepository.findById(dto.roomId)
-                .orElseThrow { throw ClientErrorException("Room is not found") }
-        room.bookedNumber++
-
-        if (room.bookedNumber > room.availableNumber) {
-            throw ClientErrorException("Room is already booked by somebody")
-        }
-        room.status = RoomStatus.BOOKED
-        room.bookedDateTime = Instant.now()
-        return roomsRepository.save(room)
     }
 
 }

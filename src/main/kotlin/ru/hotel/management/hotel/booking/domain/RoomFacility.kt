@@ -23,10 +23,10 @@ class RoomFacility(
     @Column(name = "description")
     var description: String,
 
-    @Column(name = "created_data_time")
+    @Column(name = "created_date_time")
     var createdDateTime: Instant,
 
-    @Column(name = "updated_data_time")
+    @Column(name = "updated_date_time")
     var updatedDateTime: Instant,
 
     @ManyToMany(mappedBy = "facilities")

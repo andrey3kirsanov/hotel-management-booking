@@ -10,7 +10,7 @@ import javax.persistence.PostUpdate
 
 @Service
 class HotelUpdateListener(
-        val kafkaTemplate: KafkaTemplate<String, HotelPush>?,
+        val hotelKafkaTemplate: KafkaTemplate<String, HotelPush>?,
         val hotelPushMapper: HotelPushMapper?
 ) {
     constructor(): this(null, null)
@@ -18,6 +18,6 @@ class HotelUpdateListener(
     @PostPersist
     @PostUpdate
     fun pushHotel(hotel: Hotel) {
-        kafkaTemplate?.send("hotel.push", hotelPushMapper?.toHotelPush(hotel))
+        hotelKafkaTemplate?.send("hotel.push", hotelPushMapper?.toHotelPush(hotel))
     }
 }

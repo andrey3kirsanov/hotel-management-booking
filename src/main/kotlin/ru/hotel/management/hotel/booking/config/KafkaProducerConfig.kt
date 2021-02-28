@@ -9,6 +9,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.core.ProducerFactory
 import org.springframework.kafka.support.serializer.JsonSerializer
+import ru.hotel.management.hotel.booking.domain.message.CustomerPush
 import ru.hotel.management.hotel.booking.domain.message.HotelPush
 
 @Configuration
@@ -34,12 +35,21 @@ class KafkaProducerConfig() {
     }
 
     @Bean
-    fun producerFactory(): ProducerFactory<String, HotelPush> {
+    fun hotelProducerFactory(): ProducerFactory<String, HotelPush> {
         return DefaultKafkaProducerFactory(producerConfigs())
     }
 
     @Bean
-    fun kafkaTemplate(): KafkaTemplate<String, HotelPush> {
-        return KafkaTemplate(producerFactory())
+    fun hotelKafkaTemplate(): KafkaTemplate<String, HotelPush> {
+        return KafkaTemplate(hotelProducerFactory())
+    }
+
+    @Bean
+    fun customerProducerFactory(): ProducerFactory<String, CustomerPush> {
+        return DefaultKafkaProducerFactory(producerConfigs())
+    }
+    @Bean
+    fun customerKafkaTemplate(): KafkaTemplate<String, CustomerPush> {
+        return KafkaTemplate(customerProducerFactory())
     }
 }

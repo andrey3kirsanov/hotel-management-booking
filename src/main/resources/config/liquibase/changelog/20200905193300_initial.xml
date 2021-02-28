@@ -21,10 +21,10 @@
             <column name="description" type="varchar(1024)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_data_time" type="timestamp">
+            <column name="created_date_time" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated_data_time" type="timestamp">
+            <column name="updated_date_time" type="timestamp">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -45,10 +45,10 @@
             <column name="description" type="varchar(1024)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_data_time" type="timestamp">
+            <column name="created_date_time" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated_data_time" type="timestamp">
+            <column name="updated_date_time" type="timestamp">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -108,13 +108,13 @@
             <column name="booked_number" type="integer">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_data_time" type="timestamp">
+            <column name="created_date_time" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated_data_time" type="timestamp">
+            <column name="updated_date_time" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="booked_data_time" type="timestamp">
+            <column name="booked_date_time" type="timestamp">
                 <constraints nullable="true"/>
             </column>
         </createTable>
@@ -141,10 +141,10 @@
             <column name="description" type="varchar(1024)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_data_time" type="timestamp">
+            <column name="created_date_time" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated_data_time" type="timestamp">
+            <column name="updated_date_time" type="timestamp">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -172,5 +172,54 @@
                                  constraintName="fk_room_facility_id"
                                  referencedColumnNames="id"
                                  referencedTableName="room_facility"/>
+    </changeSet>
+
+    <changeSet id="00000000000000_customers_sequence" author="Andrey Kirsanov">
+        <createSequence sequenceName="customers_sequence" startValue="1" incrementBy="1"/>
+    </changeSet>
+
+    <changeSet id="00000000000000_customers" author="Andrey Kirsanov">
+        <createTable tableName="customers">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_birth" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_date_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="customers_rooms">
+            <column name="customer_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="room_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="customer_id, room_id" tableName="customers_rooms"/>
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+          baseTableName="customers_rooms"
+          constraintName="fk_customer_id"
+          referencedColumnNames="id"
+          referencedTableName="customers"/>
+        <addForeignKeyConstraint baseColumnNames="room_id"
+          baseTableName="customers_rooms"
+          constraintName="fk_room_id"
+          referencedColumnNames="id"
+          referencedTableName="rooms"/>
     </changeSet>
 </databaseChangeLog>

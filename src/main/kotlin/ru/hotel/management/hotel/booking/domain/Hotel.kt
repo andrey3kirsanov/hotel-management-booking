@@ -20,10 +20,10 @@ class Hotel(
     @Column(name = "description")
     val description: String,
 
-    @Column(name = "created_data_time")
+    @Column(name = "created_date_time")
     val createdDateTime: Instant,
 
-    @Column(name = "updated_data_time")
+    @Column(name = "updated_date_time")
     val updatedDateTime: Instant,
 
     @OneToMany(mappedBy = "hotel")
