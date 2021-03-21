@@ -42,6 +42,7 @@ class CustomersService(
         roomsRepository.save(room)
 
         customer.rooms.add(room)
+        customer.updatedDateTime = Instant.now()
         return customersRepository.save(customer)
     }
 }

@@ -7,6 +7,8 @@ import ru.hotel.management.hotel.booking.domain.message.CustomerPush
 import ru.hotel.management.hotel.booking.mapper.CustomerPushMapper
 import javax.persistence.PostPersist
 import javax.persistence.PostUpdate
+import javax.persistence.PrePersist
+import javax.persistence.PreUpdate
 
 @Service
 class CustomerUpdateListener(
@@ -15,9 +17,11 @@ class CustomerUpdateListener(
 ) {
     constructor(): this(null, null)
 
+    @PrePersist
+    @PreUpdate
     @PostPersist
     @PostUpdate
-    fun pushHotel(customer: Customer) {
+    fun pushCustomer(customer: Customer) {
         customerKafkaTemplate?.send("customer.push", customerPushMapper?.toCustomerPush(customer))
     }
 }

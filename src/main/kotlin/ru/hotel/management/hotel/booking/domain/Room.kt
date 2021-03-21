@@ -59,6 +59,7 @@ class Room(
             inverseJoinColumns = [JoinColumn(name = "facility_id", referencedColumnName = "id")])
     var facilities: MutableList<RoomFacility>,
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "rooms")
     var customers: MutableList<Customer>
 )
